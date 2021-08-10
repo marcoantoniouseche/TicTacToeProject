@@ -1,10 +1,12 @@
+#add Welcome message
+print('\t\t\t\t-----Welcome to tic tac toe-----')
 #this function verify if the value is integer or not
 def catch(number):
     try:
         final_value = int(number)
     except ValueError:
         try:
-            final_value = int(input('Type a correct value(Integer): '))
+            final_value = int(input('\tType a correct value(Integer):\n\t'))
         except ValueError:
             final_value = catch(number)
     return final_value
@@ -12,14 +14,15 @@ def catch(number):
 #this function verify if this value is 'O' or 'X'
 def xoro(letter):
     while not(letter == 'X' or letter == 'x' or letter == 'O' or letter == 'o'):
-            letter = input('Type a correct value(\'X\' or \'O\'): ')
+        letter = input('\tType a correct value(\'X\' or \'O\'):\n\t')
     return letter
 
 #This function display a board
 def display_board(lis):
     for i in range(len(lis)):
-        print(i + 1, lis[i][0], lis[i][1], lis[i][2])
-    print('  ', 1,' ',2,' ',3)
+        print('\t', i + 1, lis[i][0], lis[i][1], lis[i][2])
+    print('\t','  ', 1,' ',2,' ',3)
+    print('\n')
     
 #this function assign 'X' or 'Y', depend of the player1 selection
 def selection(player, favourite_figure):
@@ -38,19 +41,19 @@ def selection(player, favourite_figure):
 board = [['[ ]','[ ]','[ ]'], ['[ ]','[ ]','[ ]'], ['[ ]','[ ]','[ ]']]
 
 #add interactivity 
-print('Select "O" if you want to play with o, or "X" if you want to play with x')
-letter_select = xoro(input())
+print('\n\tSelect "O" if you want to play with o, or "X" if you want to play with x')
+letter_select = xoro(input('\t'))
 letter_select = letter_select.capitalize()
 
-print('Instructions:\nFor fill it the squares, write vertical and horizontal numbers depend of the position on board\ne.g.'
+print('\n\tInstructions:\n\tFor fill it the squares, write vertical and horizontal numbers depend of the position on board\n\te.g.'
 ' if you write 12 you should output:')
 print(f'''
-1 [ ] [{letter_select}] [ ]
-2 [ ] [ ] [ ]
-3 [ ] [ ] [ ]
-   1   2   3
+\t1 [ ] [{letter_select}] [ ]
+\t2 [ ] [ ] [ ]
+\t3 [ ] [ ] [ ]
+\t   1   2   3
 ''')
-print('Warning: If you type an incorrect value, you will lost your turn\n')
+print('\tWarning: If you type an incorrect value, you will lost your turn\n')
 
 counter = 0
 i1 = 0 #Refers to index one
@@ -60,18 +63,18 @@ victory = False #Boolean value that i use to look at if you winner or not
 while counter < 9:
     i1 = 0
     try: 
-        player1 = catch(input('Player1: '))
+        player1 = catch(input('\tPlayer1: '))
         while player1 >= 10:
             player1 -= 10
             i1 += 1
         i2 = player1
         if board[i1-1][i2-1] == '[O]' or board[i1-1][i2-1] == '[X]':
-            print('Invalid value, lost your turn')
+            print('\tInvalid value, lost your turn')
             counter -= 1
         else:
             board[i1-1][i2-1] = selection('Player1', letter_select)
     except IndexError:
-        print('Invalid value, lost your turn')
+        print('\tInvalid value, lost your turn')
         counter -= 1
     display_board(board)
     counter += 1
@@ -86,27 +89,27 @@ while counter < 9:
             victory = True
         
     if victory == True:
-        print('Player1 win')
+        print('\tPlayer1 win')
         break
     
     if board[2][0] == board[1][1] == board[0][2] == '[O]' or board[0][0] == board[1][1] == board[2][2] == '[O]' or board[2][0] == board[1][1] == board[0][2] == '[X]' or board[0][0] == board[1][1] == board[2][2] == '[X]':
-        print('Player1 win')
+        print('\tPlayer1 win')
         break
     
     i1 = 0
     try:
-        player2 = catch(input('Player2: '))
+        player2 = catch(input('\tPlayer2: '))
         while player2 >= 10:
             player2 -= 10
             i1 += 1
         i2 = player2
         if board[i1-1][i2-1] == '[O]' or board[i1-1][i2-1] == '[X]':
-            print('Invalid value, lost your turn')
+            print('\tInvalid value, lost your turn')
             counter -= 1
         else:
             board[i1-1][i2-1] = selection('Player2', letter_select)
     except IndexError:
-        print('Invalid value, lost your turn')
+        print('\tInvalid value, lost your turn')
         counter -= 1
     display_board(board)
     counter += 1
@@ -118,9 +121,9 @@ while counter < 9:
             victory = True
         
     if victory == True:
-        print('Player2 win')
+        print('\tPlayer2 win')
         break
     
     if board[2][0] == board[1][1] == board[0][2] == '[O]' or board[0][0] == board[1][1] == board[2][2] == '[O]' or board[2][0] == board[1][1] == board[0][2] == '[X]' or board[0][0] == board[1][1] == board[2][2] == '[X]':
-        print('Player2 win')
+        print('\tPlayer2 win')
         break

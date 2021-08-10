@@ -1,13 +1,45 @@
+#this function verify if the value is integer or not
+def catch(number):
+    try:
+        final_value = int(number)
+    except ValueError:
+        try:
+            final_value = int(input('Type a correct value(Integer): '))
+        except ValueError:
+            final_value = catch(number)
+    return final_value
+
+#this function verify if this value is 'O' or 'X'
+def xoro(letter):
+    while not(letter == 'X' or letter == 'x' or letter == 'O' or letter == 'o'):
+            letter = input('Type a correct value(\'X\' or \'O\'): ')
+    return letter
+
+#This function display a board
+def display_board(lis):
+    for i in range(len(lis)):
+        print(i + 1, lis[i][0], lis[i][1], lis[i][2])
+    print('  ', 1,' ',2,' ',3)
+    
+#this function assign 'X' or 'Y', depend of the player1 selection
+def selection(player, favourite_figure):
+    if player == 'Player1':
+        if favourite_figure == 'X':
+            return '[X]'
+        else:
+            return '[O]'
+    else:
+        if favourite_figure == 'X':
+            return '[O]'
+        else:
+            return '[X]'
+
 #In this part, i make the board and display it
 board = [['[ ]','[ ]','[ ]'], ['[ ]','[ ]','[ ]'], ['[ ]','[ ]','[ ]']]
 
-for i in range(len(board)):
-    print(i + 1, board[i][0], board[i][1], board[i][2])
-print('  ', 1,' ',2,' ',3)
-
 #add interactivity 
 print('Select "O" if you want to play with o, or "X" if you want to play with x')
-letter_select = input()
+letter_select = xoro(input())
 letter_select = letter_select.capitalize()
 
 print('Instructions:\nFor fill it the squares, write vertical and horizontal numbers depend of the position on board\ne.g.'
@@ -28,7 +60,7 @@ victory = False #Boolean value that i use to look at if you winner or not
 while counter < 9:
     i1 = 0
     try: 
-        player1 = int(input('player1: '))
+        player1 = catch(input('Player1: '))
         while player1 >= 10:
             player1 -= 10
             i1 += 1
@@ -37,13 +69,11 @@ while counter < 9:
             print('Invalid value, lost your turn')
             counter -= 1
         else:
-            board[i1-1][i2-1] = '[O]'
+            board[i1-1][i2-1] = selection('Player1', letter_select)
     except IndexError:
         print('Invalid value, lost your turn')
         counter -= 1
-    for i in range(len(board)):
-        print(i + 1, board[i][0], board[i][1], board[i][2])
-    print('  ', 1,' ',2,' ',3)
+    display_board(board)
     counter += 1
     
     if counter == 9:
@@ -56,14 +86,16 @@ while counter < 9:
             victory = True
         
     if victory == True:
+        print('Player1 win')
         break
     
     if board[2][0] == board[1][1] == board[0][2] == '[O]' or board[0][0] == board[1][1] == board[2][2] == '[O]' or board[2][0] == board[1][1] == board[0][2] == '[X]' or board[0][0] == board[1][1] == board[2][2] == '[X]':
+        print('Player1 win')
         break
     
     i1 = 0
     try:
-        player2 = int(input('player2: '))
+        player2 = catch(input('Player2: '))
         while player2 >= 10:
             player2 -= 10
             i1 += 1
@@ -72,13 +104,11 @@ while counter < 9:
             print('Invalid value, lost your turn')
             counter -= 1
         else:
-            board[i1-1][i2-1] = '[X]'
+            board[i1-1][i2-1] = selection('Player2', letter_select)
     except IndexError:
         print('Invalid value, lost your turn')
         counter -= 1
-    for i in range(len(board)):
-        print(i + 1, board[i][0], board[i][1], board[i][2])
-    print('  ', 1,' ',2,' ',3)
+    display_board(board)
     counter += 1
     
     for i in range(0, 3):
@@ -88,7 +118,9 @@ while counter < 9:
             victory = True
         
     if victory == True:
+        print('Player2 win')
         break
     
     if board[2][0] == board[1][1] == board[0][2] == '[O]' or board[0][0] == board[1][1] == board[2][2] == '[O]' or board[2][0] == board[1][1] == board[0][2] == '[X]' or board[0][0] == board[1][1] == board[2][2] == '[X]':
+        print('Player2 win')
         break
